@@ -7,9 +7,16 @@
     <title>Document</title>
     <title></title>
     <link rel="stylesheet" href="/style.css" />
-    <script src="script.js" defer></script>
+    <script defer src="script.js"></script>
   </head>
   <body>
-    <div class="grid-container"></div>
+    <div id="flex-container-column">
+      <h1>Etch-A-Sketch</h1>
+      <div id="flex-container-row">
+        <button>New Grid?</button>
+        <input type="text" placeholder="Enter side length..." />
+      </div>
+      <div id="grid-container"></div>
+    </div>
   </body>
 </html>

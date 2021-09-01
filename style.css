@@ -1,3 +1,7 @@
+/* Font import */
+@import url("https://fonts.googleapis.com/css2?family=Yesteryear&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+
 /* CSS Reset */
 * {
   margin: 0;
@@ -11,35 +15,75 @@ body {
 }
 
 /* Flex */
-.flex-container-column {
+#flex-container-column {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.flex-container-row {
+#flex-container-row {
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 80%;
+  width: 40%;
   justify-content: space-evenly;
+  margin: 0.5rem 0 2rem 0;
 }
 
 /* Grid */
-.grid-container {
+#grid-container {
   display: grid;
-  height: 960px;
-  width: 960px;
+  height: 600px;
+  width: 600px;
+  box-shadow: 5px 5px 8px #212121;
 }
 
-.grid-container div {
-  border: 1px rgb(121, 7, 7) solid;
-  background: royalblue;
+#grid-container div {
+  /* border: 1px rgb(121, 7, 7) solid; */
+  background: rgb(238, 238, 238);
+}
+
+/* Elements */
+
+h1 {
+  font-family: "Yesteryear", cursive;
+  font-size: 4rem;
+  margin: 4rem 0 0 0;
+  color: rgb(226, 43, 220);
+  text-decoration: underline;
 }
 
 button {
   margin: 10px 0;
+  padding: 0.5rem;
+}
+
+input,
+button {
+  box-shadow: 2px 2px 3px #212121;
+  font-family: "VT323", monospace;
+  color: rgb(226, 43, 220);
   font-size: 1.5rem;
+}
+
+input {
+  width: 13rem;
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgb(226, 43, 220);
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: rgb(226, 43, 220);
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: rgb(226, 43, 220);
 }
 
 /* Hide */
