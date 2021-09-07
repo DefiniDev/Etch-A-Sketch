@@ -15,19 +15,31 @@ body {
 }
 
 /* Flex */
-#flex-container-column {
+.flex-container-column {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-#flex-container-row {
+.flex-container-row {
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 40%;
-  justify-content: space-evenly;
-  margin: 0.5rem 0 2rem 0;
+}
+
+/* Background */
+#beach {
+  position: absolute;
+  bottom: 0px;
+  height: 35vh;
+  width: 100%;
+  background-color: sandybrown;
+  z-index: -2;
+  -webkit-filter: blur(1px);
+  -moz-filter: blur(1px);
+  -o-filter: blur(1px);
+  -ms-filter: blur(1px);
+  filter: blur(1px);
 }
 
 /* Grid */
@@ -35,58 +47,187 @@ body {
   display: grid;
   height: 600px;
   width: 600px;
-  box-shadow: 5px 5px 8px #212121;
+  box-shadow: 5px 5px 8px rgb(0, 48, 85);
+  margin: auto;
 }
 
 #grid-container div {
-  /* border: 1px rgb(121, 7, 7) solid; */
   background: rgb(238, 238, 238);
 }
 
+.grid-visible {
+  border: 1px rgb(84, 181, 255) solid;
+  transition: border 1s ease-in-out;
+}
+
+.grid-invisible {
+  border: 1px transparent solid;
+  transition: border 1s ease-in-out;
+}
+
 /* Elements */
+/* H1 */
+#h1-plus-border {
+  transform: translateX(-2px);
+  width: 508px;
+  margin: 30px auto;
+}
+
+#h1-border {
+  position: absolute;
+  top: 1.3rem;
+  width: 31.5rem;
+  height: 6rem;
+  border: 5px rgb(226, 43, 220) solid;
+  border-radius: 5px;
+  box-shadow: 2px 2px rgb(173, 19, 168);
+  z-index: -1;
+}
 
 h1 {
   font-family: "Yesteryear", cursive;
-  font-size: 4rem;
-  margin: 4rem 0 0 0;
+  font-size: 6rem;
   color: rgb(226, 43, 220);
+  text-shadow: 2px 1px rgb(173, 19, 168);
   text-decoration: underline;
+  border-radius: 5px;
 }
 
-button {
-  margin: 10px 0;
-  padding: 0.5rem;
+/* Buttons */
+.btns {
+  width: 550px;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
-input,
-button {
-  box-shadow: 2px 2px 3px #212121;
+#btns-bottom {
+  margin-bottom: 30px;
+}
+
+button:hover {
+  animation: none !important;
+  color: rgb(226, 43, 220) !important;
+}
+
+.btn-active {
+  box-shadow: 2px 2px rgb(173, 19, 168);
+  border: 4px rgb(226, 43, 220) solid;
+}
+
+#btn-lighten {
+  color: #888;
+}
+
+#btn-darken {
+  color: #000;
+}
+
+button,
+label {
+  background-color: white;
   font-family: "VT323", monospace;
-  color: rgb(226, 43, 220);
   font-size: 1.5rem;
+  color: #555;
+  border-radius: 0;
+  box-shadow: 2px 2px 3px rgb(0, 66, 116);
+  text-shadow: 0.5px 0.5px rgb(170, 16, 165);
+  padding: 0.3rem 0.5em;
+  transform: scaleY(0.9);
 }
 
-input {
-  width: 13rem;
+label {
+  border-left: rgb(107, 107, 107) 2px solid;
+  border-top: rgb(107, 107, 107) 2px solid;
+  border-right: rgb(45, 45, 45) 2px solid;
+  border-bottom: rgb(45, 45, 45) 2px solid;
+  padding: 0.1rem 0.8rem 0.3rem 0.55em;
 }
 
-::placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: rgb(226, 43, 220);
-  opacity: 1; /* Firefox */
-}
-
-:-ms-input-placeholder {
-  /* Internet Explorer 10-11 */
-  color: rgb(226, 43, 220);
-}
-
-::-ms-input-placeholder {
-  /* Microsoft Edge */
+label:hover {
   color: rgb(226, 43, 220);
 }
 
-/* Hide */
-.hidden {
-  display: none;
+input[type="color"] {
+  background-color: white;
+  padding: 0.2rem 0 0 0;
+  text-shadow: none;
+  width: 30px;
+  border: none;
+}
+
+/* Footer */
+footer {
+  width: 210px;
+  margin: 2px auto auto auto;
+}
+
+span {
+  font-family: "VT323", monospace;
+  font-size: 1.5rem;
+  color: rgb(230, 0, 222);
+  text-decoration: underline;
+  text-shadow: 1px 1px rgb(173, 19, 168);
+  display: inline-block;
+  transform: scaleY(0.8);
+}
+
+svg {
+  height: 22px;
+  width: 22px;
+  position: relative;
+  top: 6px;
+  left: 5px;
+  fill: rgb(230, 0, 222);
+}
+
+/* Animations */
+/* Git icon */
+svg {
+  transition: transform 0.3s ease-in-out;
+}
+svg:hover {
+  transform: rotate(360deg) scale(1.2);
+}
+
+/* Rainbow effect */
+#btn-rainbow {
+  animation: colorRotate 2s linear 0s infinite;
+}
+@keyframes colorRotate {
+  from {
+    color: #6666ff;
+  }
+  10% {
+    color: #0099ff;
+  }
+  50% {
+    color: #00ff00;
+  }
+  75% {
+    color: #ff3399;
+  }
+  100% {
+    color: #6666ff;
+  }
+}
+
+/* Media Queries */
+@media only screen and (max-width: 620px) {
+  #grid-container {
+    height: 450px;
+    width: 450px;
+  }
+  #h1-plus-border {
+    transform: scale(0.9);
+    white-space: nowrap;
+  }
+  .btns {
+    width: 450px;
+  }
+  #btns-top {
+    margin: 40px 0 40px 0;
+  }
+  #btns-bottom {
+    margin-bottom: 70px;
+  }
 }
