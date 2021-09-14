@@ -20,14 +20,23 @@ window.onload = () => {
   const gridContainer = document.getElementById("grid-container");
 
   // addEventListeners function
-  const eventListeners = (divAmnt, divChange) => {
-    window["cell" + divAmnt].addEventListener("mouseover", e => {
-      if (e.buttons === 1)
-        window["cell" + divAmnt].style.backgroundColor = divChange;
-    });
-    window["cell" + divAmnt].addEventListener("mousedown", e => {
-      window["cell" + divAmnt].style.backgroundColor = divChange;
-    });
+  const eventListeners = (currentGridSize, divChange) => {
+    for (let i = 1; i <= currentGridSize; i++) {
+      window["cell" + i].addEventListener("mouseover", e => {
+        if (e.buttons === 1) {
+          if (btnRainbow.classList.contains("btn-active")) {
+            window["cell" + i].style.backgroundColor =
+              "#" + Math.floor(Math.random() * 16777215).toString(16);
+          } else window["cell" + i].style.backgroundColor = divChange;
+        }
+      });
+      window["cell" + i].addEventListener("mousedown", e => {
+        if (btnRainbow.classList.contains("btn-active")) {
+          window["cell" + i].style.backgroundColor =
+            "#" + Math.floor(Math.random() * 16777215).toString(16);
+        } else window["cell" + i].style.backgroundColor = divChange;
+      });
+    }
   };
 
   // div-creation function
@@ -39,8 +48,8 @@ window.onload = () => {
       window["cell" + i].classList.add("grid-visible");
       gridContainer.appendChild(window["cell" + i]);
       // add event-listeners for mouse-over (requires mouse1 down = true) and mouse-down
-      eventListeners(i, divChangeEffect);
     }
+    eventListeners(currentGridSize, divChangeEffect);
   };
 
   // div-removal function
@@ -49,23 +58,6 @@ window.onload = () => {
       gridContainer.removeChild(gridContainer.firstChild);
     }
   };
-
-  // Change Eventlisteners function
-  // ------------------------------------------------------------------------
-  const changeEventListeners = (divAmnt, divChange) => {
-    console.log(divAmnt);
-    console.log(divChange);
-    for (let i = 1; i <= divAmnt; i++) {
-      window["cell" + i].addEventListener("mouseover", e => {
-        if (e.buttons === 1)
-          window["cell" + i].style.backgroundColor = divChange;
-      });
-      window["cell" + i].addEventListener("mousedown", e => {
-        window["cell" + i].style.backgroundColor = divChange;
-      });
-    }
-  };
-  // ------------------------------------------------------------------------
 
   // create first grid & manual layout
   divCreate(currentGridSize);
@@ -117,8 +109,15 @@ window.onload = () => {
     btnLighten.classList.remove("btn-active");
     btnDarken.classList.remove("btn-active");
     btnRainbow.classList.remove("btn-active");
-    console.log(pen.value);
-    changeEventListeners(currentGridSize, pen.value);
+    eventListeners(currentGridSize, pen.value);
+  });
+
+  pen.addEventListener("input", () => {
+    btnPen.classList.add("btn-active");
+    btnLighten.classList.remove("btn-active");
+    btnDarken.classList.remove("btn-active");
+    btnRainbow.classList.remove("btn-active");
+    eventListeners(currentGridSize, pen.value);
   });
 
   // --- Future reference for Darken / Light solution ---
@@ -131,6 +130,7 @@ window.onload = () => {
   //     filter: brightness(0.85);
   // }
 
+  // Lighten btn
   btnLighten.addEventListener("click", () => {
     btnPen.classList.remove("btn-active");
     btnLighten.classList.add("btn-active");
@@ -138,21 +138,19 @@ window.onload = () => {
     btnRainbow.classList.remove("btn-active");
   });
 
+  // Darken btn
   btnDarken.addEventListener("click", () => {
     btnPen.classList.remove("btn-active");
     btnLighten.classList.remove("btn-active");
     btnDarken.classList.add("btn-active");
     btnRainbow.classList.remove("btn-active");
-    changeEventListeners();
   });
 
   // Rainbow btn
-
   btnRainbow.addEventListener("click", () => {
     btnPen.classList.remove("btn-active");
     btnLighten.classList.remove("btn-active");
     btnDarken.classList.remove("btn-active");
     btnRainbow.classList.add("btn-active");
-    changeEventListeners(currentGridSize, test());
   });
 };
