@@ -1,13 +1,7 @@
 "use strict";
 window.onload = () => {
-  // disable drag behaviour
-  window.ondragstart = function () {
-    return false;
-  };
-
   // selectors & variables
   let currentGridSize = 100;
-  let divChangeEffect = "#000";
   const btnGrid = document.getElementById("btn-grid");
   const btn10x = document.getElementById("btn-10x");
   const btn50x = document.getElementById("btn-50x");
@@ -19,22 +13,108 @@ window.onload = () => {
   const btnRainbow = document.getElementById("btn-rainbow");
   const gridContainer = document.getElementById("grid-container");
 
+  // disable drag behaviour
+  window.ondragstart = function () {
+    return false;
+  };
+
+  // HEXtoRGB function
+  function hexToRGB(h) {
+    let r = 0;
+    let g = 0;
+    let b = 0;
+    console.log(h);
+    r = "0x" + h[1] + h[2];
+    g = "0x" + h[3] + h[4];
+    b = "0x" + h[5] + h[6];
+    return "rgb(" + +r + "," + +g + "," + +b + ")";
+  }
+
+  // Random color for rainbow
+  const randomColor = () => {
+    return Math.floor(Math.random() * 255) + 1;
+  };
+
   // addEventListeners function
   const eventListeners = (currentGridSize, divChange) => {
     for (let i = 1; i <= currentGridSize; i++) {
       window["cell" + i].addEventListener("mouseover", e => {
         if (e.buttons === 1) {
-          if (btnRainbow.classList.contains("btn-active")) {
-            window["cell" + i].style.backgroundColor =
-              "#" + Math.floor(Math.random() * 16777215).toString(16);
-          } else window["cell" + i].style.backgroundColor = divChange;
+          // Pen colour function
+          if (btnPen.classList.contains("btn-active")) {
+            window["cell" + i].style.backgroundColor = divChange;
+          }
+          // Lighten function
+          else if (btnLighten.classList.contains("btn-active")) {
+            const input = e["srcElement"]["style"]["backgroundColor"];
+            let [r, g, b] = input.split(",");
+            r = r.split("(");
+            r = Number(r[1]);
+            g = Number(g);
+            b = Number(b.substring(0, b.length - 1));
+            r += 20;
+            g += 20;
+            b += 20;
+            window["cell" + i].style.backgroundColor = `rgb(${r},${g},${b}`;
+          }
+          // Darken function
+          else if (btnDarken.classList.contains("btn-active")) {
+            const input = e["srcElement"]["style"]["backgroundColor"];
+            let [r, g, b] = input.split(",");
+            r = r.split("(");
+            r = Number(r[1]);
+            g = Number(g);
+            b = Number(b.substring(0, b.length - 1));
+            r -= 20;
+            g -= 20;
+            b -= 20;
+            window["cell" + i].style.backgroundColor = `rgb(${r},${g},${b}`;
+          }
+          // Rainbow function
+          else if (btnRainbow.classList.contains("btn-active")) {
+            window[
+              "cell" + i
+            ].style.backgroundColor = `rgb(${randomColor()},${randomColor()},${randomColor()})`;
+          } else window["cell" + i].style.backgroundColor = "rgb(0, 0, 0)";
         }
       });
       window["cell" + i].addEventListener("mousedown", e => {
-        if (btnRainbow.classList.contains("btn-active")) {
-          window["cell" + i].style.backgroundColor =
-            "#" + Math.floor(Math.random() * 16777215).toString(16);
-        } else window["cell" + i].style.backgroundColor = divChange;
+        // Pen colour function
+        if (btnPen.classList.contains("btn-active")) {
+          window["cell" + i].style.backgroundColor = divChange;
+        }
+        // Lighten function
+        else if (btnLighten.classList.contains("btn-active")) {
+          const input = e["srcElement"]["style"]["backgroundColor"];
+          let [r, g, b] = input.split(",");
+          r = r.split("(");
+          r = Number(r[1]);
+          g = Number(g);
+          b = Number(b.substring(0, b.length - 1));
+          r += 20;
+          g += 20;
+          b += 20;
+          window["cell" + i].style.backgroundColor = `rgb(${r},${g},${b}`;
+        }
+        // Darken function
+        else if (btnDarken.classList.contains("btn-active")) {
+          const input = e["srcElement"]["style"]["backgroundColor"];
+          let [r, g, b] = input.split(",");
+          r = r.split("(");
+          r = Number(r[1]);
+          g = Number(g);
+          b = Number(b.substring(0, b.length - 1));
+          r -= 20;
+          g -= 20;
+          b -= 20;
+          window["cell" + i].style.backgroundColor = `rgb(${r},${g},${b}`;
+        }
+        // Rainbow function
+        else if (btnRainbow.classList.contains("btn-active")) {
+          window[
+            "cell" + i
+          ].style.backgroundColor = `rgb(${randomColor()},${randomColor()},${randomColor()})`;
+        } else window["cell" + i].style.backgroundColor = "rgb(0, 0, 0)";
       });
     }
   };
@@ -44,12 +124,13 @@ window.onload = () => {
     for (let i = 1; i <= sideLength; i++) {
       window["cell" + i] = document.createElement("div");
       // window["cell" + i].classList.add("cell");
-      // window["cell" + i].classList.add("cell" + i);
+      window["cell" + i].classList.add("cell" + i);
       window["cell" + i].classList.add("grid-visible");
+      window["cell" + i].style.backgroundColor = "rgb(255,255,255)";
       gridContainer.appendChild(window["cell" + i]);
-      // add event-listeners for mouse-over (requires mouse1 down = true) and mouse-down
     }
-    eventListeners(currentGridSize, divChangeEffect);
+    // add event-listeners for mouse-over (requires mouse1 down = true) and mouse-down
+    eventListeners(currentGridSize);
   };
 
   // div-removal function
@@ -109,7 +190,7 @@ window.onload = () => {
     btnLighten.classList.remove("btn-active");
     btnDarken.classList.remove("btn-active");
     btnRainbow.classList.remove("btn-active");
-    eventListeners(currentGridSize, pen.value);
+    eventListeners(currentGridSize, hexToRGB(pen.value));
   });
 
   pen.addEventListener("input", () => {
@@ -117,18 +198,8 @@ window.onload = () => {
     btnLighten.classList.remove("btn-active");
     btnDarken.classList.remove("btn-active");
     btnRainbow.classList.remove("btn-active");
-    eventListeners(currentGridSize, pen.value);
+    eventListeners(currentGridSize, hexToRGB(pen.value));
   });
-
-  // --- Future reference for Darken / Light solution ---
-  //   a {
-  //     /* a nice, modern blue for links */
-  //     color: #118bee;
-  // }
-  // a:active {
-  //     /* Darken on click by 15% (down to 85%) */
-  //     filter: brightness(0.85);
-  // }
 
   // Lighten btn
   btnLighten.addEventListener("click", () => {
