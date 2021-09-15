@@ -68,29 +68,30 @@ body {
 /* Elements */
 /* H1 */
 #h1-plus-border {
-  transform: translateX(-2px);
-  width: 508px;
-  margin: 30px auto;
+  width: 504px;
+  margin: 30px auto 30px auto;
 }
 
 #h1-border {
   position: absolute;
-  top: 1.3rem;
-  width: 31.5rem;
-  height: 6rem;
+  /* top: 42px; */
+  width: 504px;
+  height: 95px;
   border: 5px rgb(226, 43, 220) solid;
   border-radius: 5px;
   box-shadow: 2px 2px rgb(173, 19, 168);
   z-index: -1;
+  margin-top: 20px;
 }
 
 h1 {
   font-family: "Yesteryear", cursive;
-  font-size: 6rem;
+  font-size: 95px;
   color: rgb(226, 43, 220);
   text-shadow: 2px 1px rgb(173, 19, 168);
   text-decoration: underline;
   border-radius: 5px;
+  width: 504px;
 }
 
 /* Buttons */
@@ -217,9 +218,11 @@ svg:hover {
     height: 450px;
     width: 450px;
   }
+  #header-resize {
+    transform: scale(0.88);
+  }
   #h1-plus-border {
-    transform: scale(0.9);
-    white-space: nowrap;
+    margin: 30px auto 0px auto;
   }
   .btns {
     width: 450px;
