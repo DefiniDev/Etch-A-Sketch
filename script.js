@@ -2,6 +2,7 @@
 window.onload = () => {
   // selectors & variables
   let currentGridSize = 100;
+  let penColor = "";
   const btnGrid = document.getElementById("btn-grid");
   const btn10x = document.getElementById("btn-10x");
   const btn50x = document.getElementById("btn-50x");
@@ -19,16 +20,15 @@ window.onload = () => {
   };
 
   // HEXtoRGB function
-  function hexToRGB(h) {
+  const hexToRGB = h => {
     let r = 0;
     let g = 0;
     let b = 0;
-    console.log(h);
     r = "0x" + h[1] + h[2];
     g = "0x" + h[3] + h[4];
     b = "0x" + h[5] + h[6];
     return "rgb(" + +r + "," + +g + "," + +b + ")";
-  }
+  };
 
   // Random color for rainbow
   const randomColor = () => {
@@ -36,15 +36,15 @@ window.onload = () => {
   };
 
   // addEventListeners function
-  const eventListeners = (currentGridSize, divChange) => {
+  const eventListeners = currentGridSize => {
     for (let i = 1; i <= currentGridSize; i++) {
       window["cell" + i].addEventListener("mouseover", e => {
         if (e.buttons === 1) {
-          // Pen colour function
+          // Color Picker
           if (btnPen.classList.contains("btn-active")) {
-            window["cell" + i].style.backgroundColor = divChange;
+            window["cell" + i].style.backgroundColor = penColor;
           }
-          // Lighten function
+          // Lighten
           else if (btnLighten.classList.contains("btn-active")) {
             const input = e["srcElement"]["style"]["backgroundColor"];
             let [r, g, b] = input.split(",");
@@ -57,7 +57,7 @@ window.onload = () => {
             b += 20;
             window["cell" + i].style.backgroundColor = `rgb(${r},${g},${b}`;
           }
-          // Darken function
+          // Darken
           else if (btnDarken.classList.contains("btn-active")) {
             const input = e["srcElement"]["style"]["backgroundColor"];
             let [r, g, b] = input.split(",");
@@ -70,7 +70,7 @@ window.onload = () => {
             b -= 20;
             window["cell" + i].style.backgroundColor = `rgb(${r},${g},${b}`;
           }
-          // Rainbow function
+          // Rainbow
           else if (btnRainbow.classList.contains("btn-active")) {
             window[
               "cell" + i
@@ -79,11 +79,11 @@ window.onload = () => {
         }
       });
       window["cell" + i].addEventListener("mousedown", e => {
-        // Pen colour function
+        // Color Picker
         if (btnPen.classList.contains("btn-active")) {
-          window["cell" + i].style.backgroundColor = divChange;
+          window["cell" + i].style.backgroundColor = penColor;
         }
-        // Lighten function
+        // Lighten
         else if (btnLighten.classList.contains("btn-active")) {
           const input = e["srcElement"]["style"]["backgroundColor"];
           let [r, g, b] = input.split(",");
@@ -96,7 +96,7 @@ window.onload = () => {
           b += 20;
           window["cell" + i].style.backgroundColor = `rgb(${r},${g},${b}`;
         }
-        // Darken function
+        // Darken
         else if (btnDarken.classList.contains("btn-active")) {
           const input = e["srcElement"]["style"]["backgroundColor"];
           let [r, g, b] = input.split(",");
@@ -109,7 +109,7 @@ window.onload = () => {
           b -= 20;
           window["cell" + i].style.backgroundColor = `rgb(${r},${g},${b}`;
         }
-        // Rainbow function
+        // Rainbow
         else if (btnRainbow.classList.contains("btn-active")) {
           window[
             "cell" + i
@@ -190,7 +190,7 @@ window.onload = () => {
     btnLighten.classList.remove("btn-active");
     btnDarken.classList.remove("btn-active");
     btnRainbow.classList.remove("btn-active");
-    eventListeners(currentGridSize, hexToRGB(pen.value));
+    penColor = hexToRGB(pen.value);
   });
 
   pen.addEventListener("input", () => {
@@ -198,7 +198,7 @@ window.onload = () => {
     btnLighten.classList.remove("btn-active");
     btnDarken.classList.remove("btn-active");
     btnRainbow.classList.remove("btn-active");
-    eventListeners(currentGridSize, hexToRGB(pen.value));
+    penColor = hexToRGB(pen.value);
   });
 
   // Lighten btn
